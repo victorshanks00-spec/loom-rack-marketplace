@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Loom & Rack | Fashion Marketplace</title>
+
+  <meta
+    name="description"
+    content="Discover clothing from different sellers on Loom & Rack."
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #111111;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: white;
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    .navbar {
+      max-width: 1400px;
+      margin: auto;
+      height: 75px;
+      padding: 0 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search {
+      width: 220px;
+      padding: 11px 14px;
+      border: 1px solid #dddddd;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .icon-button {
+      background: transparent;
+      font-size: 20px;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 600px;
+
+      display: flex;
+      align-items: center;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          rgba(0,0,0,.45),
+          rgba(0,0,0,.45)
+        ),
+        url("https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1800&q=85")
+        center / cover;
+    }
+
+    .hero-content {
+      max-width: 1400px;
+      width: 100%;
+      margin: auto;
+      padding: 50px 30px;
+    }
+
+    .hero h1 {
+      max-width: 700px;
+      font-size: clamp(45px, 7vw, 82px);
+      line-height: .95;
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      font-size: 19px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      padding: 15px 25px;
+      font-weight: 700;
+      border-radius: 3px;
+    }
+
+    .button-black {
+      background: #111;
+      color: white;
+    }
+
+    .button-white {
+      background: white;
+      color: #111;
+    }
+
+    /* SECTIONS */
+
+    .section {
+      max-width: 1400px;
+      margin: auto;
+      padding: 75px 30px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+      font-size: 32px;
+    }
+
+    .view-all {
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* CATEGORIES */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+    }
+
+    .category {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: #eeeeee;
+    }
+
+    .category img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      transition: transform .3s;
+    }
+
+    .category:hover img {
+      transform: scale(1.06);
+    }
+
+    .category-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      padding: 25px 12px 15px;
+
+      color: white;
+      font-weight: 700;
+
+      background: linear-gradient(
+        transparent,
+        rgba(0,0,0,.8)
+      );
+    }
+
+    /* PRODUCTS */
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .product-image {
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+      background: #f4f4f4;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s;
+    }
+
+    .product:hover .product-image img {
+      transform: scale(1.04);
+    }
+
+    .favorite {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+
+      width: 40px;
+      height: 40px;
+
+      border-radius: 50%;
+      background: white;
+
+      font-size: 20px;
+    }
+
+    .product-info {
+      padding-top: 15px;
+    }
+
+    .product-name {
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .seller {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .rating {
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .add-cart {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+
+      background: #111;
+      color: white;
+
+      font-weight: 700;
+    }
+
+    .add-cart:hover {
+      background: #333;
+    }
+
+    /* SELLERS */
+
+    .sellers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .seller-card {
+      border: 1px solid #eeeeee;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .seller-photo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .seller-card h3 {
+      margin-bottom: 7px;
+    }
+
+    .seller-card p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .seller-button {
+      background: #111;
+      color: white;
+      padding: 11px 20px;
+      font-weight: 700;
+    }
+
+    /* WHY */
+
+    .why-section {
+      background: #f7f7f7;
+      max-width: none;
+    }
+
+    .why-inner {
+      max-width: 1400px;
+      margin: auto;
+      padding: 75px 30px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .feature {
+      background: white;
+      padding: 30px;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .feature h3 {
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* CTA */
+
+    .cta {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 90px 20px;
+    }
+
+    .cta h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #111;
+      color: white;
+      border-top: 1px solid #333;
+    }
+
+    .footer {
+      max-width: 1400px;
+      margin: auto;
+
+      padding: 50px 30px;
+
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer h3 {
+      margin-bottom: 15px;
+    }
+
+    .footer p,
+    .footer a {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    /* MOBILE */
+
+    @media(max-width: 1000px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .categories {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sellers,
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+    @media(max-width: 600px) {
+
+      .navbar {
+        height: 65px;
+        padding: 0 15px;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .search {
+        width: 110px;
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero-content {
+        padding: 40px 15px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .section {
+        padding: 50px 15px;
+      }
+
+      .section-header h2 {
+        font-size: 25px;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .category {
+        height: 180px;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .product-image {
+        height: 250px;
+      }
+
+      .sellers,
+      .features,
+      .footer {
+        grid-template-columns: 1fr;
+      }
+
+      .cta h2 {
+        font-size: 32px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <nav class="navbar">
+
+      <a href="#" class="logo">
+        LOOM & RACK
+      </a>
+
+      <div class="nav-links">
+
+        <a href="#">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#categories">Categories</a>
+        <a href="#sellers">Sellers</a>
+        <a href="#deals">Deals</a>
+        <a href="#about">About</a>
+
+      </div>
+
+      <div class="nav-actions">
+
+        <input
+          id="searchInput"
+          class="search"
+          type="search"
+          placeholder="Search..."
+        >
+
+        <button
+          class="icon-button"
+          onclick="showAccount()"
+          aria-label="Account"
+        >
+          👤
+        </button>
+
+        <button
+          class="icon-button"
+          onclick="showCart()"
+          aria-label="Cart"
+        >
+          🛒
+        </button>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <main>
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <h1>
+          Find Your Style.<br>
+          Find Your Seller.
+        </h1>
+
+        <p>
+          Discover clothing from different sellers,
+          compare products, communicate directly,
+          and order what you love.
+        </p>
+
+        <div class="hero-buttons">
+
+          <button
+            class="button button-black"
+            onclick="goToShop()"
+          >
+            SHOP NOW
+          </button>
+
+          <button
+            class="button button-white"
+            onclick="goToCategories()"
+          >
+            EXPLORE CATEGORIES
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CATEGORIES -->
+
+    <section
+      class="section"
+      id="categories"
+    >
+
+      <div class="section-header">
+
+        <h2>Shop Categories</h2>
+
+        <a
+          href="#shop"
+          class="view-all"
+        >
+          View All
+        </a>
+
+      </div>
+
+
+      <div class="categories">
+
+        <a class="category" href="#shop">
+          <img
+            src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80"
+            alt="Hoodies"
+          >
+          <div class="category-name">
+            Hoodies
+          </div>
+        </a>
+
+        <a class="category" href="#shop">
+          <img
+            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80"
+            alt="T-Shirts"
+          >
+          <div class="category-name">
+            T-Shirts
+          </div>
+        </a>
+
+        <a class="category" href="#shop">
+          <img
+            src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80"
+            alt="Jackets"
+          >
+          <div class="category-name">
+            Jackets
+          </div>
+        </a>
+
+        <a class="category" href="#shop">
+          <img
+            src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80"
+            alt="Dresses"
+          >
+          <div class="category-name">
+            Dresses
+          </div>
+        </a>
+
+        <a class="category" href="#shop">
+          <img
+            src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=700&q=80"
+            alt="Jeans"
+          >
+          <div class="category-name">
+            Jeans
+          </div>
+        </a>
+
+        <a class="category" href="#shop">
+          <img
+            src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80"
+            alt="Shoes"
+          >
+          <div class="category-name">
+            Shoes
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section
+      class="section"
+      id="shop"
+    >
+
+      <div class="section-header">
+
+        <h2>Featured Products</h2>
+
+        <a
+          href="#"
+          class="view-all"
+        >
+          View All Products
+        </a>
+
+      </div>
+
+
+      <div class="products">
+
+        <!-- PRODUCT 1 -->
+
+        <article class="product">
+
+          <div class="product-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=85"
+              alt="Premium Black Hoodie"
+            >
+
+            <button
+              class="favorite"
+              onclick="favorite(this)"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Premium Black Hoodie
+            </div>
+
+            <div class="seller">
+              Urban Wear · Nairobi
+            </div>
+
+            <div class="rating">
+              ★★★★★ 4.9
+            </div>
+
+            <div class="price">
+              KES 2,500
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Premium Black Hoodie', 2500)"
+            >
+              ADD TO CART
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <!-- PRODUCT 2 -->
+
+        <article class="product">
+
+          <div class="product-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85"
+              alt="Classic White T-Shirt"
+            >
+
+            <button
+              class="favorite"
+              onclick="favorite(this)"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Classic White T-Shirt
+            </div>
+
+            <div class="seller">
+              Everyday Fashion · Nairobi
+            </div>
+
+            <div class="rating">
+              ★★★★★ 4.7
+            </div>
+
+            <div class="price">
+              KES 1,200
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Classic White T-Shirt', 1200)"
+            >
+              ADD TO CART
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <!-- PRODUCT 3 -->
+
+        <article class="product">
+
+          <div class="product-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=800&q=85"
+              alt="Winter Puffer Jacket"
+            >
+
+            <button
+              class="favorite"
+              onclick="favorite(this)"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Winter Puffer Jacket
+            </div>
+
+            <div class="seller">
+              Premium Jackets · Nairobi
+            </div>
+
+            <div class="rating">
+              ★★★★★ 4.8
+            </div>
+
+            <div class="price">
+              KES 5,800
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Winter Puffer Jacket', 5800)"
+            >
+              ADD TO CART
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <!-- PRODUCT 4 -->
+
+        <article class="product">
+
+          <div class="product-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=85"
+              alt="Modern Summer Dress"
+            >
+
+            <button
+              class="favorite"
+              onclick="favorite(this)"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Modern Summer Dress
+            </div>
+
+            <div class="seller">
+              Street Style Kenya · Nairobi
+            </div>
+
+            <div class="rating">
+              ★★★★★ 4.6
+            </div>
+
+            <div class="price">
+              KES 3,200
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Modern Summer Dress', 3200)"
+            >
+              ADD TO CART
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- SELLERS -->
+
+    <section
+      class="section"
+      id="sellers"
+    >
+
+      <div class="section-header">
+
+        <h2>Featured Sellers</h2>
+
+        <a
+          href="#"
+          class="view-all"
+        >
+          View All Sellers
+        </a>
+
+      </div>
+
+
+      <div class="sellers">
+
+        <div class="seller-card">
+
+          <img
+            class="seller-photo"
+            src="https://i.pravatar.cc/150?img=12"
+            alt="Urban Wear"
+          >
+
+          <h3>Urban Wear</h3>
+
+          <p>
+            Nairobi · ★★★★★ 4.9
+          </p>
+
+          <button class="seller-button">
+            VIEW SHOP
+          </button>
+
+        </div>
+
+
+        <div class="seller-card">
+
+          <img
+            class="seller-photo"
+            src="https://i.pravatar.cc/150?img=32"
+            alt="Kids Fashion Hub"
+          >
+
+          <h3>Kids Fashion Hub</h3>
+
+          <p>
+            Nairobi · ★★★★★ 4.8
+          </p>
+
+          <button class="seller-button">
+            VIEW SHOP
+          </button>
+
+        </div>
+
+
+        <div class="seller-card">
+
+          <img
+            class="seller-photo"
+            src="https://i.pravatar.cc/150?img=45"
+            alt="Street Style Kenya"
+          >
+
+          <h3>Street Style Kenya</h3>
+
+          <p>
+            Nairobi · ★★★★★ 4.7
+          </p>
+
+          <button class="seller-button">
+            VIEW SHOP
+          </button>
+
+        </div>
+
+
+        <div class="seller-card">
+
+          <img
+            class="seller-photo"
+            src="https://i.pravatar.cc/150?img=56"
+            alt="Premium Jackets"
+          >
+
+          <h3>Premium Jackets</h3>
+
+          <p>
+            Nairobi · ★★★★★ 4.9
+          </p>
+
+          <button class="seller-button">
+            VIEW SHOP
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- WHY LOOM & RACK -->
+
+    <section class="why-section">
+
+      <div class="why-inner">
+
+        <div class="section-header">
+
+          <h2>
+            Why Shop Loom & Rack?
+          </h2>
+
+        </div>
+
+
+        <div class="features">
+
+          <div class="feature">
+
+            <div class="feature-icon">
+              ◈
+            </div>
+
+            <h3>
+              Multiple Sellers
+            </h3>
+
+            <p>
+              Discover fashion from different
+              sellers in one marketplace.
+            </p>
+
+          </div>
+
+
+          <div class="feature">
+
+            <div class="feature-icon">
+              ◇
+            </div>
+
+            <h3>
+              Direct Communication
+            </h3>
+
+            <p>
+              Contact sellers directly and
+              ask questions before ordering.
+            </p>
+
+          </div>
+
+
+          <div class="feature">
+
+            <div class="feature-icon">
+              ✓
+            </div>
+
+            <h3>
+              Easy Ordering
+            </h3>
+
+            <p>
+              Add products to your cart and
+              complete checkout easily.
+            </p>
+
+          </div>
+
+
+          <div class="feature">
+
+            <div class="feature-icon">
+              ★
+            </div>
+
+            <h3>
+              Customer Reviews
+            </h3>
+
+            <p>
+              See ratings and reviews from
+              customers who purchased products.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+      <h2>
+        Ready to find your next outfit?
+      </h2>
+
+      <p>
+        Discover clothing from independent
+        fashion sellers.
+      </p>
+
+      <button
+        class="button button-white"
+        onclick="goToShop()"
+      >
+        START SHOPPING
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer id="about">
+
+    <div class="footer">
+
+      <div>
+
+        <h3>
+          LOOM & RACK
+        </h3>
+
+        <p>
+          A modern marketplace connecting
+          customers with clothing sellers.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          SHOP
+        </h3>
+
+        <p>
+          <a href="#shop">
+            All Products
+          </a>
+        </p>
+
+        <p>
+          <a href="#categories">
+            Categories
+          </a>
+        </p>
+
+        <p>
+          <a href="#deals">
+            Deals
+          </a>
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          SELL
+        </h3>
+
+        <p>
+          Become a Seller
+        </p>
+
+        <p>
+          Seller Dashboard
+        </p>
+
+        <p>
+          Seller Policy
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          HELP
+        </h3>
+
+        <p>
+          Contact Us
+        </p>
+
+        <p>
+          Privacy Policy
+        </p>
+
+        <p>
+          Terms & Conditions
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    let cart = JSON.parse(
+      localStorage.getItem("loomRackCart")
+    ) || [];
+
+
+    function addToCart(name, price) {
+
+      const existing = cart.find(
+        item => item.name === name
+      );
+
+      if (existing) {
+
+        existing.quantity++;
+
+      } else {
+
+        cart.push({
+          name: name,
+          price: price,
+          quantity: 1
+        });
+
+      }
+
+      localStorage.setItem(
+        "loomRackCart",
+        JSON.stringify(cart)
+      );
+
+      alert(
+        name + " has been added to your cart."
+      );
+
+    }
+
+
+    function showCart() {
+
+      const total = cart.reduce(
+        (sum, item) =>
+          sum + item.quantity,
+        0
+      );
+
+      alert(
+        "Cart: " +
+        total +
+        " item(s)"
+      );
+
+    }
+
+
+    function showAccount() {
+
+      alert(
+        "Account\n\n" +
+        "Customer Login\n" +
+        "Seller Login\n" +
+        "Admin Login"
+      );
+
+    }
+
+
+    function favorite(button) {
+
+      if (button.innerText === "♡") {
+
+        button.innerText = "♥";
+
+      } else {
+
+        button.innerText = "♡";
+
+      }
+
+    }
+
+
+    function goToShop() {
+
+      document
+        .getElementById("shop")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function goToCategories() {
+
+      document
+        .getElementById("categories")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    document
+      .getElementById("searchInput")
+      .addEventListener(
+        "keypress",
+        function(event) {
+
+          if (event.key === "Enter") {
+
+            const search =
+              this.value.trim();
+
+            if (search) {
+
+              alert(
+                "Searching for: " +
+                search
+              );
+
+            }
+
+          }
+
+        }
+      );
+
+  </script>
+
+</body>
+</html>
